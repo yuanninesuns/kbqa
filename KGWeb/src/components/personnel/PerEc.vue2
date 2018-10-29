@@ -1,0 +1,396 @@
+<template>
+  <div class="ns">
+    <div class="left_pad">
+    <el-container Opacity="0.5">
+      <br>
+      <el-header style="width = 100%;padding: 0px;display:flex;justify-content:space-between">
+        <el-form :inline="true" :model="formInline" Opacity="0.50" >
+        <el-form-item label="提供字段" Opacity="0.50">
+            <el-select v-model="formInline.region" placeholder="">
+            <el-option label="症状" value="zhengzhuang"></el-option>
+            <el-option label="药" value="yao"></el-option>
+            <el-option label="科室" value="keshi"></el-option>
+            <el-option label="疾病" value="jibing"></el-option>
+            <el-option label="部位" value="buwei"></el-option>
+            <el-option label="检查" value="jiancha"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="输入" Opacity="0.50">
+            <el-input v-model="formInline.user" placeholder=""></el-input>
+        </el-form-item>
+        </el-form>
+      </el-header>
+        
+      <el-row :gutter="10" >
+        <el-col :span="4" v-for="se in select" :key="se.num" Opacity="0.50" >
+          <div class="grid-content bg-purple">
+            <div class="el_text">{{se.name}}</div>
+            <el-button type="info" size = "mini" icon="el-icon-close" class = "el_set" @click="del(se.num)"></el-button>
+          </div>
+        </el-col>
+      </el-row>
+
+      <el-container style="height: 372px; border: 1px solid #eee">
+        <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+          <el-menu :default-openeds="['1']">
+            <el-submenu index="1">
+              <template slot="title"><i class="el-icon-menu"></i>导航</template>
+              <el-menu-item-group  >
+                <!-- v-for = "type in types" :key="type.num" -->
+                <el-menu-item index="1-1" @click="getKeywords('症状')">症状</el-menu-item>
+                <!-- <el-menu-item @click="getKeywords(type.name)">{{type.name}}</el-menu-item> -->
+                <el-menu-item index="1-2" @click="getKeywords('药')">药</el-menu-item> 
+                <el-menu-item index="1-3" @click="getKeywords('科室')">科室</el-menu-item>
+                <el-menu-item index="1-4" @click="getKeywords('疾病')">疾病</el-menu-item>
+                <el-menu-item index="1-5" @click="getKeywords('部位')">部位</el-menu-item>
+                <el-menu-item index="1-6" @click="getKeywords('检查')">检查</el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
+          </el-menu>
+        </el-aside>
+  
+        <el-container>
+          
+          <el-main>
+            <el-table :data="myData">
+              <el-table-column prop="name" label="结果" >
+              </el-table-column>
+            </el-table>
+          </el-main>
+        </el-container>
+      </el-container>
+
+      <br>
+      <el-rate
+        v-model="value3"
+        show-text>
+      </el-rate>
+      
+    </el-container>
+    <iframe src="../../static/test.html" width="1200" height="300" frameborder="0" scrolling="auto" style="position:absolute;top: -300px;left: 0px;"></iframe>
+  </div>
+  <div class="right_pad">
+    <qiuqiu></qiuqiu>
+    hello world
+  </div>
+  </div> 
+  
+</template>
+
+<script>
+import PerTrain from './PerTrain.vue'
+import d3 from "d3";
+export default {
+  name: "qiuqiu",
+  select: [],
+  data() {
+      
+    types: [
+      { name: "症状", num: 0 },
+      { name: "药", num: 1 },
+      { name: "科室", num: 2 },
+      { name: "疾病", num: 3 },
+      { name: "部位", num: 4 },
+      { name: "检查", num: 5 }
+    ];
+    const item = {
+      date: "2016-05-02",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1518 弄"
+    };
+    return {
+        graph: {
+        nodes: [
+          { atom: "医疗", size: 22 }, 
+          { atom: "疾病", size: 22 },
+          { atom: "药", size: 22 },
+          // { atom: "N", size: 12 },
+          // { atom: "H", size: 12 },
+          // { atom: "O", size: 12 },
+          // { atom: "O", size: 12 },
+          // { atom: "H", size: 12 },
+          // { atom: "H", size: 12 },
+          // { atom: "H", size: 12 },
+          // { atom: "H", size: 12 },
+          // { atom: "H", size: 12 },
+          // { atom: "H", size: 12 }
+        ],
+        links: [
+          { source: 0, target: 1, bond: 1,},
+          { source: 0, target: 2, bond: 1 },
+          { source: 1, target: 2, bond: 1 },
+          // { source: 1, target: 3, bond: 1 },
+          // { source: 2, target: 5, bond: 1 },
+          // { source: 2, target: 6, bond: 1 },
+          // { source: 1, target: 4, bond: 1 },
+          // { source: 3, target: 10, bond: 1 },
+          // { source: 3, target: 11, bond: 1 },
+          // { source: 0, target: 7, bond: 1 },
+          // { source: 0, target: 8, bond: 1 },
+          // { source: 0, target: 9, bond: 1 },
+          // { source: 5, target: 12, bond: 1 }
+        ]
+      },
+      flag: 0,
+      formInline: {
+        user: "",
+        region: ""
+      },
+      select: [],
+      value3: null,
+      options: [
+        {
+          value: "zhengzhuang",
+          label: "症状",
+          children: [
+            { value: "zhongyi", label: "中医症状" },
+            { value: "xiyi", label: "西医症状" }
+          ]
+        },
+        {
+          value: "yao",
+          label: "药",
+          children: [
+            { value: "zhongyao", label: "中药" },
+            { value: "xiyao", label: "西药" }
+          ]
+        },
+        { value: "keshi", label: "科室" },
+        { value: "buwei", label: "部位" },
+        { value: "jiancha", label: "检查" },
+        { value: "jibing", label: "疾病" }
+      ],
+      myData: [{ name: "暂时没有结果" }]
+    };
+    
+  },
+   mounted() {
+    //页面加载
+    const width = 900,
+      height = 500;
+    const color = d3.scale.category20();
+
+    const radius = d3.scale.sqrt().range([0, 6]);
+
+    const svg = d3
+      .select(this.$el)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    const force = d3.layout
+      .force()
+      .size([width, height])
+      .charge(-400)
+      .linkDistance(function(d) {
+        return radius(d.source.size) + radius(d.target.size) + 60;
+      });
+
+    force
+      .nodes(this.graph.nodes)
+      .links(this.graph.links)
+      .on("tick", tick)
+      .start();
+
+    const link = svg
+      .selectAll(".link")
+      .data(this.graph.links)
+      .enter()
+      .append("g")
+      .attr("class", "link");
+
+    link.append("line").style("stroke-width", function(d) {
+      return (d.bond * 2 - 1) * 2 + "px";
+    });
+
+    link
+      .filter(function(d) {
+        return d.bond > 1;
+      })
+      .append("line")
+      .attr("class", "separator");
+
+    var node = svg
+      .selectAll(".node")
+      .data(this.graph.nodes)
+      .enter()
+      .append("g")
+      .attr("class", "node")
+      .call(force.drag);
+
+    node
+      .append("circle")
+      .attr("r", function(d) {
+        return radius(d.size);
+      })
+      .style("fill", function(d) {
+        return color(d.atom);
+      });
+
+    node
+      .append("text")
+      .attr("dy", ".35em")
+      .attr("text-anchor", "middle")
+      .text(function(d) {
+        return d.atom;
+      });
+    function tick() {
+      link
+        .selectAll("line")
+        .attr("x1", function(d) {
+          return d.source.x;
+        })
+        .attr("y1", function(d) {
+          return d.source.y;
+        })
+        .attr("x2", function(d) {
+          return d.target.x;
+        })
+        .attr("y2", function(d) {
+          return d.target.y;
+        });
+
+      node.attr("transform", function(d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+    }
+  },
+  methods: {
+    onSubmit() {
+      console.log("submit!");
+    },
+    getKeywords(s) {
+      var inputlabel = this.formInline.region;
+      if (inputlabel == "") {
+        alert("请选择字段！");
+        return;
+      }
+      this.select.push({ name: inputlabel, num: this.flag });
+      this.flag++;
+
+      var inputcontent = this.formInline.user;
+      if (inputcontent == "") {
+        alert("请输入字段！");
+        return;
+      }
+      this.select.push({ name: inputcontent, num: this.flag });
+      this.flag++;
+
+      this.select.push({ name: s, num: this.flag });
+      this.flag++;
+      // alert(inputlabel+" "+inputcontent+" "+s);
+      var _this = this;
+      this.postRequest("/employee/basic/maxWorkID", {
+        s1: inputlabel,
+        s2: inputcontent,
+        s3: s
+      }).then(resp => {
+        this.myData = [];
+        resp.data.forEach(element => {
+          this.myData.push({ name: element });
+        });
+      });
+    },
+    del(number) {
+      var temp = [];
+      // alert(number)
+      for (var i = this.select.length - 1; i >= 0; i--) {
+        if (this.select[i].num == number) {
+          this.select.pop();
+          this.flag--;
+          return;
+        } else {
+          temp.push(this.select[i]);
+          this.select.pop();
+          this.flag--;
+        }
+      }
+    }
+  },
+  component:{
+    "qiuqiu":PerTrain
+  }
+};
+</script>
+
+<style>
+.ns {
+  /* background: url(/src/components/save.jpg) no-repeat; */
+  /* background:#990000; */
+  background-size: 100%;
+}
+.left_pad{
+  width: 50%;
+  height: 100%;
+}
+.right_pad{
+  width: 50%;
+  height: 100%;
+}
+el-row {
+  margin-bottom: 20px;
+}
+el-col {
+  border-radius: 4px;
+}
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.bg-purple {
+  background: #d3dce6;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.bg-purple .el_text {
+  float: left;
+  width: 64%;
+  height: 36px;
+}
+.bg-purple .el_set {
+  display: block;
+  /* position: absolute; */
+  float: right;
+  width: 36%;
+  height: 36px;
+  margin: 0;
+
+  right: 0;
+  top: 0;
+  /* background:url("../statistics/ds.png")no-repeat center top;
+    background-size: 100%;
+    background-position-y: absolute; */
+  /* border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px; */
+  border-radius: 4px;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+  line-height: 36px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
+</style>
+<style >
+.link line {
+  stroke: #696969;
+}
+
+.link line.separator {
+  stroke: #fff;
+  stroke-width: 2px;
+}
+
+.node circle {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  font: 10px sans-serif;
+  pointer-events: none;
+}
+</style>

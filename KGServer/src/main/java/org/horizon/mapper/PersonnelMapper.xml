@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.horizon.mapper.PersonnelMapper">
+   <insert id="addPersonnel" parameterType="org.horizon.bean.Personnel">
+            insert into student_class (name, num_stu,
+        des, begin_date, end_date)
+      values (#{name,jdbcType=VARCHAR}, #{num_stu,jdbcType=INTEGER},
+      #{des,jdbcType=VARCHAR},#{beginDate,jdbcType=VARCHAR},#{endDate,jdbcType=VARCHAR})
+    </insert>
+    <resultMap id="BaseResultMap" type="org.horizon.bean.Personnel">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="num_stu" property="num_stu"/>
+        <result column="des" property="des"/>
+        <result column="begin_date" property="begin_date"/>
+        <result column="end_date" property="end_date"/>
+    </resultMap>
+    <select id="getPersonnelByPage" resultMap="BaseResultMap">
+        SELECT * from student_class
+    </select>
+    <select id="getPersonnelByPages" resultMap="BaseResultMap">
+        select * from student_class where  name
+        like concat('%',#{keywords},'%')
+        <if test="start!=null and size!=null">
+            order by id limit #{start},#{size}
+        </if>
+    </select>
+    <select id="getCountByKeywords" resultType="Long">
+        SELECT count(*) FROM student_class e WHERE e.name LIKE concat('%',#{keywords},'%')
+    </select>
+    <delete id="deletePersonnelById">
+        DELETE FROM student_class WHERE id IN
+        <foreach collection="ids" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+    <update id="updatePersonnel">
+        update student_class
+        <set>
+            <if test="personnel.name != null">
+                name = #{personnel.name,jdbcType=VARCHAR},
+            </if>
+            <if test="personnel.num_stu != null">
+                num_stu = #{personnel.num_stu,jdbcType=INTEGER},
+            </if>
+            <if test="personnel.des != null">
+                des = #{personnel.des,jdbcType=VARCHAR},
+            </if>
+            <if test="personnel.begin_date != null">
+                begin_date = #{personnel.beginDate,jdbcType=VARCHAR},
+            </if>
+            <if test="personnel.end_date != null">
+                end_date = #{personnel.endDate,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{personnel.id,jdbcType=BIGINT}
+    </update>
+    <select id="getPersonnelloyeeByPage" resultMap="BaseResultMap">
+        select * from student_class where name
+        like concat('%',#{keywords},'%')
+        <if test="start!=null and size!=null">
+            order by e.id limit #{start},#{size}
+        </if>
+    </select>
+</mapper>

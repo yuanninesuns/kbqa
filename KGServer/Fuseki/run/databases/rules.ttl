@@ -1,0 +1,5 @@
+@prefix a: <http://dsc.nlp-bigdatalab.org:8086/> .
+@prefix fa: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix fb: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+[ruleZhuyuan: (?p <http://dsc.nlp-bigdatalab.org:8086/疾病相关科室> ?m) (?m <http://www.w3.org/2000/01/rdf-schema#label> \"内科\"@ZH) -> (?p <http://www.w3.org/2000/01/rdf-schema#label> \"yes\"@ZH)]
+
