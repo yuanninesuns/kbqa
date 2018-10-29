@@ -8,8 +8,8 @@
 
 涉及的知识：知识表示，知识建模，知识抽取，知识存储，知识融合，知识问答，知识推理，RDF
 
-另有data文件，放在KGServer/data下
-另有爬虫相关数据和文件
+另有data文件，放在KGServer/data下：https://pan.baidu.com/s/1QnKgE80pkmSxo4YtkFTqtA
+另有爬虫相关数据和文件：https://pan.baidu.com/s/1kRP4GikB5QiBMd_oaelSJw
 
 
  
