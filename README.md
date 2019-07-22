@@ -12,9 +12,16 @@
 另有爬虫相关数据和文件：https://pan.baidu.com/s/1kRP4GikB5QiBMd_oaelSJw
 
 
-！！！！！更新！！！！！！1
+！！！！！更新！！！！！！
+
 由于百度网盘被屏蔽了 现更新数据地址
-另有data文件，放在KGServer/data下：https://pan.baidu.com/s/1QnKgE80pkmSxo4YtkFTqtA
-另有爬虫相关数据和文件：https://pan.baidu.com/s/1kRP4GikB5QiBMd_oaelSJw
+
+另有data文件，放在KGServer/data下：链接：https://pan.baidu.com/s/1Mo2zeqnjXL7_7xTjcwUlkg 
+提取码：rf0r 
+
+
+另有爬虫相关数据和文件：链接：https://pan.baidu.com/s/1GWv7S_HHOKk5hsoYLhKdrg 
+提取码：cle1 
+
 
 
