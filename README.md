@@ -13,9 +13,9 @@
 
 图数据库处理目录：kbqa/KGServer/src/main/java/TDB/
 
-如果只想简单的做实验可以查看kbqa/KGServer目录
+**如果只想简单的做实验可以查看kbqa/KGServer目录**
 
-如果想跑通整个项目，则需要安装Neo4j，mysql等第三方软件，且需要以下数据文件
+**如果想跑通整个项目，则需要安装Neo4j，mysql等第三方软件，且需要以下数据文件**
 
 有data文件，放在KGServer/data下：https://pan.baidu.com/s/1QnKgE80pkmSxo4YtkFTqtA
 
