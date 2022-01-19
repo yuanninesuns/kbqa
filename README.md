@@ -32,10 +32,5 @@
 另有爬虫相关数据和文件：链接：https://pan.baidu.com/s/1GWv7S_HHOKk5hsoYLhKdrg 
 提取码：cle1 
 
-关注我的微信公众号“算法岗从零到无穷”，学习更多算法的知识
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200115151410145.jpg)
-
-
-
 
 
