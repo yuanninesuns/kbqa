@@ -2,6 +2,8 @@
 基于知识图谱的中文症状问答系统，前端vue.js，后端springboot
 开发语言是java，运行环境是windows
 
+@598807302是我们的共同开发者
+
 
 用到的技术：word2vec，doc2vec，编辑距离，词性标注，依存句法分析，scrapy，sparql
 
