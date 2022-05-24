@@ -21,7 +21,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<jena.version>3.7.0</jena.version>
+		<jena.version>4.2.0</jena.version>
 		<java.version>1.8</java.version>
 	</properties>
 
